@@ -5,7 +5,7 @@ import numpy as np
 
 st.set_page_colab = True
 st.set_page_config(
-    page_title="NZ Bank Loan Default Predictor",
+    page_title="Nigerian Bank Loan Default Predictor",
     page_icon="🏦",
     layout="centered"
 )
@@ -26,8 +26,8 @@ except Exception as e:
     model_loaded = False
     load_error = str(e)
 
-st.title("🏦 NZ Bank Loan Default Predictor")
-st.write("This interactive dashboard evaluates credit default risk for bank loan applicants using our optimized machine learning pipeline.")
+st.title("🏦 Nigerian Bank Loan Default Predictor")
+st.write("This interactive dashboard evaluates credit default risk for Nigerian bank loan applicants across all regions using our optimized machine learning pipeline.")
 
 if not model_loaded:
     st.error(f"⚠️ Could not load `loan_default_model.joblib`. Details: {load_error}")
@@ -36,29 +36,38 @@ else:
 
     st.header("Applicant Details")
 
-    # Generate some simple input forms based on dataset characteristics
+    # Nigerian States and FCT
+    nigeria_states = [
+        "Lagos", "Abuja (FCT)", "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
+        "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti",
+        "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi",
+        "Kogi", "Kwara", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo",
+        "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"
+    ]
+
+    # Generate input forms based on dataset characteristics
     col1, col2 = st.columns(2)
     with col1:
         age = st.number_input("Age", min_value=18, max_value=100, value=35)
         gender = st.selectbox("Gender", ["Male", "Female", "Other/Prefer not to say"])
-        region = st.selectbox("NZ Region", ["Auckland", "Wellington", "Canterbury", "Waikato", "Bay of Plenty", "Manawatu-Wanganui", "Otago", "Southland", "Northland", "Hawke's Bay", "Taranaki", "Gisborne", "Marlborough", "Nelson", "Tasman", "West Coast"])
+        region = st.selectbox("Nigerian State / Region", nigeria_states)
         employment_status = st.selectbox("Employment Status", ["Employed", "Self-employed", "Part-time", "Unemployed", "Retired"])
         employment_length = st.number_input("Employment Length (Years)", min_value=0, max_value=50, value=5)
         employer_tenure_years = st.number_input("Tenure with Current Employer (Years)", min_value=0.0, max_value=50.0, value=3.0)
         home_ownership = st.selectbox("Home Ownership", ["Rent", "Mortgage", "Own", "Other"])
-        annual_income = st.number_input("Annual Income ($)", min_value=0.0, value=65000.0)
-        stated_income = st.number_input("Stated Income ($)", min_value=0.0, value=65000.0)
-        verified_income = st.number_input("Verified Income ($)", min_value=0.0, value=63000.0)
+        annual_income = st.number_input("Annual Income (₦)", min_value=0.0, value=6500000.0, step=100000.0)
+        stated_income = st.number_input("Stated Income (₦)", min_value=0.0, value=6500000.0, step=100000.0)
+        verified_income = st.number_input("Verified Income (₦)", min_value=0.0, value=6300000.0, step=100000.0)
 
     with col2:
-        credit_score = st.slider("Credit Score (NZ Equifax / Centrix equivalent)", min_value=300, max_value=850, value=650)
+        credit_score = st.slider("Credit Score (CRC / FirstCentral / CreditRegistry equivalent)", min_value=300, max_value=850, value=650)
         open_accounts = st.number_input("Open Credit Accounts", min_value=0, max_value=50, value=8)
         delinq_2yrs = st.number_input("Delinquencies (Last 2 Years)", min_value=0, max_value=20, value=0)
         inquiries_6m = st.number_input("Inquiries (Last 6 Months)", min_value=0, max_value=20, value=1)
         util = st.slider("Revolving Line Utilization (%)", min_value=0.0, max_value=100.0, value=30.0)
-        revol_bal = st.number_input("Revolving Balance ($)", min_value=0.0, value=5000.0)
+        revol_bal = st.number_input("Revolving Balance (₦)", min_value=0.0, value=500000.0, step=50000.0)
         dti = st.slider("Debt-to-Income Ratio (DTI %)", min_value=0.0, max_value=100.0, value=18.0)
-        loan_amount = st.number_input("Requested Loan Amount ($)", min_value=500.0, value=15000.0)
+        loan_amount = st.number_input("Requested Loan Amount (₦)", min_value=10000.0, value=1500000.0, step=100000.0)
         term = st.selectbox("Loan Term (Months)", [36, 60])
         purpose = st.selectbox("Loan Purpose", ["debt_consolidation", "credit_card", "home_improvement", "major_purchase", "medical", "car", "moving", "other"])
         application_type = st.selectbox("Application Type", ["individual", "joint"])

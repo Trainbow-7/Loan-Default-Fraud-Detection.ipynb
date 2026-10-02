@@ -1,8 +1,8 @@
-# NZ Bank Loan Default Predictor
+# Nigerian Bank Loan Default Predictor
 
 🚀 **Live Interactive Demo:** [https://loan-default-fraud-detection-ipynb.onrender.com](https://loan-default-fraud-detection-ipynb.onrender.com/)
 
-This repository contains an end-to-end Machine Learning pipeline to predict loan defaults for New Zealand bank loan applicants using borrower demographics, financial, and digital behavioral attributes.
+This repository contains an end-to-end Machine Learning pipeline to predict loan defaults for Nigerian bank loan applicants across all 36 states and the Federal Capital Territory (Abuja), using borrower demographics, financial, and digital behavioral attributes.
 
 ## Project Workflow
 1. **Data Preprocessing & Feature Engineering**: Calculates days between application, issue, and payment dates to prevent massive categorical expansion. Removes high-cardinality raw dates and leaky flags (e.g., target-related metrics like fraud).
