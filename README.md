@@ -1,5 +1,7 @@
 # NZ Bank Loan Default Predictor
 
+🚀 **Live Interactive Demo:** [https://loan-default-fraud-detection-ipynb.onrender.com](https://loan-default-fraud-detection-ipynb.onrender.com/)
+
 This repository contains an end-to-end Machine Learning pipeline to predict loan defaults for New Zealand bank loan applicants using borrower demographics, financial, and digital behavioral attributes.
 
 ## Project Workflow
@@ -10,9 +12,11 @@ This repository contains an end-to-end Machine Learning pipeline to predict loan
 
 ## Directory Structure
 ```
+├── app.py                # Interactive Streamlit web application
 ├── train.py              # Script to build, tune, and save the pipeline
 ├── predict.py            # Script to run batch inference on new loan applicants
 ├── requirements.txt       # Production dependencies
+├── Procfile              # Render web service start definition
 └── README.md              # Project documentation
 ```
 
@@ -34,4 +38,9 @@ This will train the pipeline, optimize the classification cutoff, and export `lo
 To make predictions on new applications:
 ```bash
 python predict.py --model loan_default_model.joblib --input sample_loans.csv
+```
+
+### 4. Run the Web Application Locally
+```bash
+streamlit run app.py
 ```
