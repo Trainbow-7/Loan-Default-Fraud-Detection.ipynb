@@ -15,6 +15,7 @@ st.set_page_config(
 def load_model():
     return joblib.load("loan_default_model.joblib")
 
+load_error = None
 try:
     model_pack = load_model()
     pipeline = model_pack["pipeline"]
@@ -23,12 +24,13 @@ try:
     model_loaded = True
 except Exception as e:
     model_loaded = False
+    load_error = str(e)
 
 st.title("🏦 NZ Bank Loan Default Predictor")
 st.write("This interactive dashboard evaluates credit default risk for bank loan applicants using our optimized machine learning pipeline.")
 
 if not model_loaded:
-    st.error("⚠️ Could not load `loan_default_model.joblib`. Please ensure the model is trained and saved in this directory.")
+    st.error(f"⚠️ Could not load `loan_default_model.joblib`. Details: {load_error}")
 else:
     st.success("✅ Model loaded successfully!")
 
